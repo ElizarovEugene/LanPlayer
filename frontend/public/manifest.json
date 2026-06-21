@@ -1,0 +1,13 @@
+{
+  "name": "LanPlayer",
+  "short_name": "LanPlayer",
+  "description": "Веб-аудиоплеер для библиотеки в локальной сети",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f5f7",
+  "theme_color": "#fa233b",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

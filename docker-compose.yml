@@ -1,0 +1,25 @@
+services:
+  backend:
+    build: ./backend
+    env_file:
+      - ./.env
+    volumes:
+      - backend-data:/data
+      # Библиотека каждого пользователя монтируется отдельно, read-only.
+      # Путь внутри контейнера (после ":") указывается как library_path
+      # при создании пользователя в панели администратора.
+      # - /mnt/music/korp:/data/library/korp:ro
+    ports:
+      - "8002:8002"
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "5175:80"
+    restart: unless-stopped
+
+volumes:
+  backend-data:

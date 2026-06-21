@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LanPlayer — Графит</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        LanPlayer
+      </div>
+      <button class="theme-toggle" id="themeToggle" title="Светлая / тёмная тема">
+        <svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 0 8 8 6.5 6.5 0 0 1-8-8z"/></svg>
+      </button>
+    </div>
+
+    <div class="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Поиск в библиотеке">
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-title">Библиотека</div>
+      <ul>
+        <li class="nav-item active" data-view="songs">
+          <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          Песни
+        </li>
+        <li class="nav-item" data-view="albums">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>
+          Альбомы
+        </li>
+        <li class="nav-item" data-view="artists">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Исполнители
+        </li>
+        <li class="nav-item" data-view="folders">
+          <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
+          Папки общей сети
+        </li>
+      </ul>
+    </nav>
+
+    <nav class="nav-section playlists">
+      <div class="nav-title">
+        Плейлисты
+        <button class="add-playlist" title="Новый плейлист">+</button>
+      </div>
+      <ul>
+        <li class="nav-item playlist-item" data-view="playlist">
+          <span class="pl-dot" style="background:linear-gradient(135deg,#fa233b,#fb5c74)"></span>
+          Вечерний фокус
+        </li>
+        <li class="nav-item playlist-item" data-view="playlist">
+          <span class="pl-dot" style="background:linear-gradient(135deg,#34c759,#30d158)"></span>
+          Дорога
+        </li>
+        <li class="nav-item playlist-item" data-view="playlist">
+          <span class="pl-dot" style="background:linear-gradient(135deg,#0a84ff,#5ac8fa)"></span>
+          90-е
+        </li>
+        <li class="nav-item playlist-item" data-view="playlist">
+          <span class="pl-dot" style="background:linear-gradient(135deg,#bf5af2,#da8fff)"></span>
+          Без названия
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="share-status">
+        <span class="status-dot"></span>
+        \\NAS\Music подключена
+      </span>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <header class="toolbar">
+      <div class="window-controls">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <div class="nav-arrows">
+        <button class="arrow-btn">‹</button>
+        <button class="arrow-btn">›</button>
+      </div>
+      <h1 class="view-title" id="viewTitle">Песни</h1>
+
+      <div class="view-switch">
+        <button class="switch-btn active" data-mode="list" title="Список">
+          <svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        </button>
+        <button class="switch-btn" data-mode="grid" title="Сетка">
+          <svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="content">
+
+      <!-- List view -->
+      <div class="track-list" id="trackList">
+        <div class="track-list-head">
+          <span class="col-num">#</span>
+          <span class="col-title">Название</span>
+          <span class="col-artist">Исполнитель</span>
+          <span class="col-album">Альбом</span>
+          <span class="col-time">⏱</span>
+        </div>
+
+        <div class="track-row playing">
+          <span class="col-num"><svg class="eq" viewBox="0 0 16 16"><rect x="1" y="6" width="2" height="8"/><rect x="7" y="2" width="2" height="12"/><rect x="13" y="8" width="2" height="6"/></svg></span>
+          <span class="col-title"><span class="art mini" style="background:linear-gradient(135deg,#fa233b,#fb5c74)"></span>Полночный режим</span>
+          <span class="col-artist">Северный Свет</span>
+          <span class="col-album">Эфир</span>
+          <span class="col-time">3:42</span>
+        </div>
+        <div class="track-row">
+          <span class="col-num">2</span>
+          <span class="col-title"><span class="art mini" style="background:linear-gradient(135deg,#0a84ff,#5ac8fa)"></span>Тихий океан</span>
+          <span class="col-artist">Глубина</span>
+          <span class="col-album">Прилив</span>
+          <span class="col-time">4:15</span>
+        </div>
+        <div class="track-row">
+          <span class="col-num">3</span>
+          <span class="col-title"><span class="art mini" style="background:linear-gradient(135deg,#34c759,#30d158)"></span>Дорожный шум</span>
+          <span class="col-artist">Глубина</span>
+          <span class="col-album">Прилив</span>
+          <span class="col-time">2:58</span>
+        </div>
+        <div class="track-row">
+          <span class="col-num">4</span>
+          <span class="col-title"><span class="art mini" style="background:linear-gradient(135deg,#ff9f0a,#ffd60a)"></span>Утренний свет</span>
+          <span class="col-artist">Северный Свет</span>
+          <span class="col-album">Эфир</span>
+          <span class="col-time">3:21</span>
+        </div>
+        <div class="track-row">
+          <span class="col-num">5</span>
+          <span class="col-title"><span class="art mini" style="background:linear-gradient(135deg,#bf5af2,#da8fff)"></span>Без названия №7</span>
+          <span class="col-artist">Архив</span>
+          <span class="col-album">Черновики</span>
+          <span class="col-time">5:03</span>
+        </div>
+        <div class="track-row">
+          <span class="col-num">6</span>
+          <span class="col-title"><span class="art mini" style="background:linear-gradient(135deg,#5e5ce6,#7d7aff)"></span>Сигнал</span>
+          <span class="col-artist">Реле</span>
+          <span class="col-album">Контакт</span>
+          <span class="col-time">3:09</span>
+        </div>
+      </div>
+
+      <!-- Grid view (hidden by default) -->
+      <div class="album-grid" id="albumGrid">
+        <div class="album-card">
+          <div class="art big" style="background:linear-gradient(135deg,#fa233b,#fb5c74)"><button class="play-overlay">▶</button></div>
+          <div class="album-title">Эфир</div>
+          <div class="album-artist">Северный Свет</div>
+        </div>
+        <div class="album-card">
+          <div class="art big" style="background:linear-gradient(135deg,#0a84ff,#5ac8fa)"><button class="play-overlay">▶</button></div>
+          <div class="album-title">Прилив</div>
+          <div class="album-artist">Глубина</div>
+        </div>
+        <div class="album-card">
+          <div class="art big" style="background:linear-gradient(135deg,#34c759,#30d158)"><button class="play-overlay">▶</button></div>
+          <div class="album-title">Контакт</div>
+          <div class="album-artist">Реле</div>
+        </div>
+        <div class="album-card">
+          <div class="art big" style="background:linear-gradient(135deg,#ff9f0a,#ffd60a)"><button class="play-overlay">▶</button></div>
+          <div class="album-title">Черновики</div>
+          <div class="album-artist">Архив</div>
+        </div>
+        <div class="album-card">
+          <div class="art big" style="background:linear-gradient(135deg,#bf5af2,#da8fff)"><button class="play-overlay">▶</button></div>
+          <div class="album-title">Восход</div>
+          <div class="album-artist">Параллель</div>
+        </div>
+        <div class="album-card">
+          <div class="art big" style="background:linear-gradient(135deg,#5e5ce6,#7d7aff)"><button class="play-overlay">▶</button></div>
+          <div class="album-title">Маршрут</div>
+          <div class="album-artist">Глубина</div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+</div>
+
+<!-- Now playing bar -->
+<footer class="now-playing">
+  <div class="np-left">
+    <span class="art mini now-art" style="background:linear-gradient(135deg,#fa233b,#fb5c74)"></span>
+    <div class="np-meta">
+      <div class="np-title">Полночный режим</div>
+      <div class="np-artist">Северный Свет — Эфир</div>
+    </div>
+    <button class="like-btn" title="Нравится">♡</button>
+  </div>
+
+  <div class="np-center">
+    <div class="transport">
+      <button class="t-btn" id="shuffleBtn" title="Перемешать">
+        <svg viewBox="0 0 24 24"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+      </button>
+      <button class="t-btn" title="Назад">
+        <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+      </button>
+      <button class="t-btn play-btn" id="playBtn" title="Пауза/Воспроизведение">
+        <svg class="icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" style="display:none"><rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/></svg>
+      </button>
+      <button class="t-btn" title="Вперёд">
+        <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+      </button>
+      <button class="t-btn" id="repeatBtn" title="Повтор">
+        <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+      </button>
+    </div>
+    <div class="seek-row">
+      <span class="time elapsed">1:18</span>
+      <div class="seek-bar" id="seekBar">
+        <div class="seek-fill" id="seekFill" style="width:34%"></div>
+        <div class="seek-thumb" id="seekThumb" style="left:34%"></div>
+      </div>
+      <span class="time remaining">-2:24</span>
+    </div>
+  </div>
+
+  <div class="np-right">
+    <button class="t-btn small" title="Текст песни">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16M4 10h16M4 15h10"/></svg>
+    </button>
+    <button class="t-btn small" title="Следующие треки">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="14" y2="6"/><line x1="3" y1="12" x2="14" y2="12"/><line x1="3" y1="18" x2="10" y2="18"/><polyline points="16 16 20 18 16 20"/><line x1="20" y1="10" x2="20" y2="18"/></svg>
+    </button>
+    <div class="volume">
+      <svg viewBox="0 0 24 24"><polygon points="4 9 9 9 13 5 13 19 9 15 4 15"/><path d="M17 8a5 5 0 0 1 0 8"/></svg>
+      <div class="volume-bar" id="volBar">
+        <div class="volume-fill" id="volFill" style="width:70%"></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
